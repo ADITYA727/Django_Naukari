@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header class="mb-5">
+  <h3 style="font-weight: bold" class="page-heading">Cart</h3>
+  <hr>
+</header>
+{% if not products %}
+<p class="lead text-muted">No products added to cart yet..<p>
+    {% else %}
+    <div class="p-display-grid">
+      {% for product in products %}
+      <div class="card" style="">
+        <img class="card-img-top" src="{{product.product.image.url}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{product.product.name}}</h5>
+          <p class="card-text">Stocks: {{product.stocks}}</p>
+          <p class="card-text">Total price: ${{product.product.price}} * {{ product.stocks }}</p>
+          <div class="btn-group">
+            <a href="" class="btn btn-outline-success">Buy</a>
+            <a href="/cart/{{product.id}}/delete" class="btn btn-danger">Remove</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endblock %}

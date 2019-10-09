@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header style="display: flex; flex-direction: row; justify-content: space-between; align-items: center">
+  <h3 style="font-weight: bold">Profiles</h3>
+  {% if request.user.is_authenticated and not request.user.profile %}
+  <a href="/profiles/create" class="btn btn-success">Create Profile</a>
+  {% endif %}
+</header>
+<br>
+<div class='profiles'>
+  {% if profiles %}
+  {% for profile in profiles %}
+  <div
+    style="display: grid; grid-template-columns: 1fr 2fr 1fr; grid-gap: 1rem; align-items: center; margin-bottom: 1em; backgroud: transparent"
+    class="card">
+    <img style="width: 135px; height: 135px;" class="card-img-top" src="{{profile.image.url}}" alt="">
+    <div class="card-body">
+      <h4 class="card-title">{{ profile.name }}</h4>
+      <p class="card-text">{{ profile.location }}</p>
+    </div>
+    <div class="">
+      <a href="{{ profile.get_absolute_url }}" class="btn btn-secondary">Visit</a>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class='lead text-muted'>No profiles found..</p>
+  {% endif %}
+</div>
+{% endblock %}

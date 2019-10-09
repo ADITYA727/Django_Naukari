@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header class="mb-5">
+  <h3 style="font-weight: bold" class="page-heading">Product Details</h3>
+</header>
+<br>
+{% if product %}
+<div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1rem;" class="card">
+  <img class="card-img-top" src="{{product.image.url}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title text-center">
+      <strong>{{product.name}}</strong>
+    </h5>
+    <p class="card-text">
+      ${{product.price}}
+    </p>
+    <p class="card-text">
+      {{product.description}}
+    </p>
+    <p class="card-text">
+      {{product.published_at}}
+    </p>
+    <hr>
+    <p class="card-text">
+      <strong>{{product.provide_by}}</strong>
+    </p>
+  </div>
+</div>
+{% else %}
+<p class="lead text-muted">No products added yet..<p>
+    {% endif %}
+    {% endblock %}

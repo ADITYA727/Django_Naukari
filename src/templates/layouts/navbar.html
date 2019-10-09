@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">Dj E-Commerce</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="/profiles">Profiles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/products">Products</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/cart">
+          <i class="fas fa-shopping-cart"></i>
+          Cart
+          {% if request.user.is_authenticated %}
+            <span style="border-radius: 2rem;" class='bg-info text-light py-2 px-3'>{{ request.user.cart_set.all|length }}</span>
+          {% endif %}
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i>
+          User Management
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if request.user.is_authenticated %}
+            {% if request.user.profile %}
+            <a class="dropdown-item" href="{{request.user.profile.get_absolute_url}}">Profile</a>
+            <a class="dropdown-item" href="{{request.user.profile.get_experience_url}}">Experiences</a>
+            <a class="dropdown-item" href="{{request.user.profile.get_education_url}}">Educations</a>
+            <div class="dropdown-divider"></div>
+            {% endif %}
+            <a class="dropdown-item" href="/users/sign-out">Logout</a>
+          {% else %}
+            <a class="dropdown-item" href="/users/sign-up">Sign Up</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/users/sign-in">Sign In</a>
+          {% endif %}
+        </div>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
